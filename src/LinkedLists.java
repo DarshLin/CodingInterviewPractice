@@ -41,7 +41,6 @@ public class LinkedLists {
 //        Node answer = removeDupsByHash(list);
         Node answer = removeDupsNoExtraSpace(list);
         Node begin = answer;
-//        System.out.println(answer);
         while(answer != null) {
             System.out.print(answer.val + "|");
             answer = answer.next;
@@ -49,11 +48,41 @@ public class LinkedLists {
         System.out.println();
 
 //        Return kth element to last
+//        int kth = kthToLast(begin, 7);
+//
+//        System.out.printf("%d is %d elements from the end\n", 9, kth);
 
-        int kth = kthToLast(begin, 9);
+//        Remove middle node
+        Node midRemoved = removeMiddleNode(begin, 4);
+        Node midRemovedBeginning = midRemoved;
+        while(midRemoved != null) {
+            System.out.print(midRemoved.val + "|");
+            midRemoved = midRemoved.next;
+        }
+        Node againRemoved = removeMiddleNode(midRemovedBeginning, 5);
+        System.out.println();
+        while(againRemoved != null) {
+            System.out.print(againRemoved.val + "|");
+            againRemoved = againRemoved.next;
+        }
+    }
 
-        System.out.printf("%d is %d elements from the end\n", 9, kth);
+    private static Node removeMiddleNode(Node list, int i) {
+        //have to move up to that node first
+        Node n = list;
+        while(n.val != i) {
+            n = n.next;
+        }
+        //Now to try and remove from the list with only access to n and nothing else
+        if(n.next != null) {
+            Node temp = n.next;
+            n.val = temp.val;
+            n.next = temp.next;
+            System.gc();
+        }
 
+
+        return list;
     }
 
     private static int kthToLast(Node n, int target) {
