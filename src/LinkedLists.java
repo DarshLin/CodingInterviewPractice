@@ -60,11 +60,51 @@ public class LinkedLists {
             midRemoved = midRemoved.next;
         }
         Node againRemoved = removeMiddleNode(midRemovedBeginning, 5);
+        Node againRemovedBegin = againRemoved;
         System.out.println();
         while(againRemoved != null) {
             System.out.print(againRemoved.val + "|");
             againRemoved = againRemoved.next;
         }
+        System.out.println();
+        Node partitionedList = partition(againRemovedBegin, 7);
+        while(partitionedList != null) {
+            System.out.print(partitionedList.val + "|");
+            partitionedList = partitionedList.next;
+        }
+        System.out.println();
+    }
+
+    private static Node partition(Node list, int part) {
+        Node pointList = list;
+        Node n = new Node(pointList.val);
+        Node head = n;
+        pointList = pointList.next;
+
+        while(pointList != null) {
+            if(pointList.val < part) {
+                Node back = new Node(pointList.val);
+                back.next = head;
+                head = back;
+            }
+            else {
+                n.append(pointList.val);
+            }
+            pointList = pointList.next;
+        }
+
+
+        return head;
+    }
+
+    private static int findSize(Node list) {
+        int size = 0;
+        Node i = list;
+        while(i != null) {
+            size++;
+            i = i.next;
+        }
+        return size+1;
     }
 
     private static Node removeMiddleNode(Node list, int i) {
