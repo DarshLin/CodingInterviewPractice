@@ -38,15 +38,46 @@ public class LinkedLists {
         list.append(7);
         list.append(6);
 
-
 //        Node answer = removeDupsByHash(list);
         Node answer = removeDupsNoExtraSpace(list);
+        Node begin = answer;
+//        System.out.println(answer);
         while(answer != null) {
             System.out.print(answer.val + "|");
             answer = answer.next;
         }
         System.out.println();
+
+//        Return kth element to last
+
+        int kth = kthToLast(begin, 9);
+
+        System.out.printf("%d is %d elements from the end\n", 9, kth);
+
     }
+
+    private static int kthToLast(Node n, int target) {
+        Node mark = n;
+        Node findLast = n;
+        int diff = 0;
+        boolean marked = false;
+
+        while(findLast != null) {
+            if(mark.val != target && !marked) {
+                mark = mark.next;
+            }
+            else if(!marked && mark.val == target) {
+                marked = true;
+            }
+            if(marked) {
+                diff++;
+            }
+            findLast = findLast.next;
+        }
+
+        return diff-1;
+    }
+
 
     private static Node removeDupsNoExtraSpace(Node list) {
         Node slow = list;
@@ -55,7 +86,7 @@ public class LinkedLists {
 
         while(slow != null) {
             fast = slow;
-            System.out.println(fast.val);
+//            System.out.println(fast.val);
             while(fast.next != null) {
                 if(fast.next.val == slow.val) {
                     fast.next = fast.next.next;
@@ -65,7 +96,7 @@ public class LinkedLists {
             slow = slow.next;
         }
 
-        return null;
+        return list;
     }
 
     private static Node removeDupsByHash(Node list) {
